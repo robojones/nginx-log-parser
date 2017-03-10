@@ -1,0 +1,29 @@
+{
+  "name": "nginx-logs",
+  "version": "1.0.0",
+  "description": "Parse nginx logs",
+  "main": "createParser.js",
+  "scripts": {
+    "test": "echo 'All tests passed'"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robojones/nginx-logs.git"
+  },
+  "keywords": [
+    "nginx",
+    "logs",
+    "log",
+    "parse",
+    "parser"
+  ],
+  "author": "robojones",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robojones/nginx-logs/issues"
+  },
+  "homepage": "https://github.com/robojones/nginx-logs#readme"
+}
