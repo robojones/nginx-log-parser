@@ -1,12 +1,18 @@
 const identifierAndValue = /^(\w*)(.*?)$/
 const capture = '(.+?)'
 
+/**
+ * A parser for Nginx access and error log files.
+ */
 export class Parser {
 	/** The identifiers from the schema. */
 	private identifiers: string[] = []
 	/** Expression that parses all values from a line. */
 	private schema: RegExp
 
+	/**
+	 * @param template The schema that's provided in the Nginx config.
+	 */
 	constructor(template: string) {
 		// Split the template at the $ identifier.
 		const parts = template.split('$')
@@ -29,18 +35,25 @@ export class Parser {
 		this.schema = new RegExp(regexpString)
 	}
 
+	/**
+	 * Parse a line from the access log.
+	 * The line must match the initial template.
+	 * @param line A line from the log file.
+	 */
 	public parseLine(line: string) {
 		const values = line.match(this.schema)
 		if (!values) {
 			throw new TypeError('Line does not match the line ' + line)
 		}
 
+		// Remove the first item since it's the complete line.
 		values.shift()
 		const result: { [key: string]: string } = {}
 
 		for (let i = 0; i < values.length; i++) {
 			const identifier = this.identifiers[i]
 			const value = values[i]
+			// Unescape the hex escape sequences that Nginx creates.
 			result[identifier] = unescape(value)
 		}
 
@@ -49,6 +62,7 @@ export class Parser {
 
 	/**
 	 * Replace characters that could break the RegExp (E.g. dots, brackets,...).
+	 * @param str The string to escape.
 	 */
 	private escapeRegExpLiteral(str: string): string {
 		return str.replace(/[\\\[.?*+^$({|-]/g, '\\$&')
