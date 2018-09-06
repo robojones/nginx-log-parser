@@ -1,13 +1,13 @@
 {
   "name": "@robojones/nginx-logs",
-  "main": "build/index",
-  "typings": "build/index",
+  "main": "build/Parser",
+  "typings": "build/Parser",
   "description": "TLS encrypted communication",
   "version": "1.0.10",
   "scripts": {
     "watch": "tsc --watch",
     "lint": "tslint --project .",
-    "build": "rm -rf build && tsc",
+    "build": "tsc",
     "test": "yarn build && yarn nyc",
     "nyc": "nyc mocha 'build/test/**/*.js'"
   },

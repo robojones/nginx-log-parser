@@ -1,48 +1,56 @@
-const esc = require('./regexpEscape')
-const ValueParser = require('./ValueParser')
-const modList = require('./modList')
+const identifierAndValue = /^(\w*)(.*?)$/
+const capture = '(.+?)'
 
-const rEscapeCharacters = /\\x([a-fA-F0-9]{2})/g
+export class Parser {
+	/** The identifiers from the schema. */
+	private identifiers: string[] = []
+	/** Expression that parses all values from a line. */
+	private schema: RegExp
 
-class Parser {
-	constructor(schema, prop) {
-		this.schema = schema
-		this.prop = prop
-		this.valueParser = new ValueParser(modList.slice())
-	}
+	constructor(template: string) {
+		// Split the template at the $ identifier.
+		const parts = template.split('$')
+		// The pieces that are between the identifiers.
+		const delimiters: string[] = []
 
-	parse(string) {
-		const lines = string.split('\n')
+		// The first item is always a delimiter.
+		delimiters.push(parts.shift() as string)
 
-		return lines.map((line, i) => {
-			return this.parseLine(line)
-		}).filter(v => v)
-	}
+		for (const part of parts) {
+			const token = part.match(identifierAndValue) as RegExpMatchArray
+			this.identifiers.push(token[1])
 
-	parseLine(line) {
-		const data = line.match(this.schema)
-
-		if(!data) {
-				return null
+			// Escape all critical chars so they won't break the RegExp.
+			const delimiter = this.escapeRegExpLiteral(token[2])
+			delimiters.push(delimiter)
 		}
 
-		data.shift()
+		const regexpString = '^' + delimiters.join(capture) + '$'
+		this.schema = new RegExp(regexpString)
+	}
 
-		const result = {}
+	public parseLine(line: string) {
+		const values = line.match(this.schema)
+		if (!values) {
+			throw new TypeError('Line does not match the line ' + line)
+		}
 
-		data.forEach((value, i) => {
-			const prop = this.prop[i]
+		values.shift()
+		const result: { [key: string]: string } = {}
 
-			value = value.replace(rEscapeCharacters, (match, s) => {
-				return String.fromCharCode(parseInt(s, 16))
-			})
-
-			result[prop] = this.valueParser.parse(value, prop)
-		})
+		for (let i = 0; i < values.length; i++) {
+			const identifier = this.identifiers[i]
+			const value = values[i]
+			result[identifier] = unescape(value)
+		}
 
 		return result
 	}
+
+	/**
+	 * Replace characters that could break the RegExp (E.g. dots, brackets,...).
+	 */
+	private escapeRegExpLiteral(str: string): string {
+		return str.replace(/[\\\[.?*+^$({|-]/g, '\\$&')
+	}
 }
-
-module.exports = Parser
-
