@@ -1,72 +1,72 @@
 version: 2
 jobs:
-  test:
-    docker:
-      - image: circleci/node
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore dependencies
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - save_cache:
-          name: Save dependencies
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules/
-      - run:
-          name: Install & initialize codeclimate test reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-            ./cc-test-reporter before-build
-      - run:
-          name: Run linter
-          command: yarn lint
-      - run:
-          name: Build typescript
-          command: yarn build
-      - run:
-          name: Run tests
-          command: yarn test
-      - run:
-          name: Report coverage to Codeclimate
-          command: ./cc-test-reporter after-build -r ${CODECLIMATE_REPO_TOKEN}
-      - save_cache:
-          name: Save build files
-          key: build-{{ .Revision }}
-          paths:
-            - build/
-  publish:
-    docker:
-      - image: circleci/node
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore build files
-          key: build-{{ .Revision }}
-      - run:
-          name: Set NPM token
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run:
-          name: Publish to NPM
-          command: npm publish
+	test:
+		docker:
+			- image: circleci/node
+		steps:
+			- checkout
+			- restore_cache:
+					name: Restore dependencies
+					key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+			- run:
+					name: Install dependencies
+					command: yarn install
+			- save_cache:
+					name: Save dependencies
+					key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+					paths:
+						- node_modules/
+			- run:
+					name: Install & initialize codeclimate test reporter
+					command: |
+						curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+						chmod +x ./cc-test-reporter
+						./cc-test-reporter before-build
+			- run:
+					name: Run linter
+					command: yarn lint
+			- run:
+					name: Build typescript
+					command: yarn build
+			- run:
+					name: Run tests
+					command: yarn test
+			- run:
+					name: Report coverage to Codeclimate
+					command: ./cc-test-reporter after-build -r ${CODECLIMATE_REPO_TOKEN}
+			- save_cache:
+					name: Save build files
+					key: build-{{ .Revision }}
+					paths:
+						- build/
+	publish:
+		docker:
+			- image: circleci/node
+		steps:
+			- checkout
+			- restore_cache:
+					name: Restore build files
+					key: build-{{ .Revision }}
+			- run:
+					name: Set NPM token
+					command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+			- run:
+					name: Publish to NPM
+					command: npm publish
 workflows:
-  version: 2
-  test_and_publish:
-    jobs:
-      - test:
-          filters:
-            tags:
-              only: /.*/
-      - publish:
-          context: NPM
-          requires:
-            - test
-          filters:
-            tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$/
-            branches:
-              ignore: /.*/
+	version: 2
+	test_and_publish:
+		jobs:
+			- test:
+					filters:
+						tags:
+							only: /.*/
+			- publish:
+					context: NPM
+					requires:
+						- test
+					filters:
+						tags:
+							only: /^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$/
+						branches:
+							ignore: /.*/
