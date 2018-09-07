@@ -19,14 +19,11 @@
     "url": "git+https://github.com/robojones/nginx-log-parser.git"
   },
   "keywords": [
-    "server",
-    "client",
-    "ssl",
-    "tls",
-    "socket",
-    "buffer",
-    "message"
-  ],
+    "nginx",
+    "logs",
+    "parse",
+		"parser"
+	],
   "author": "robojones",
   "license": "MIT",
   "bugs": {
