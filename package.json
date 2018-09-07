@@ -3,7 +3,7 @@
   "main": "build/Parser",
   "typings": "build/Parser",
   "description": "TLS encrypted communication",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "watch": "tsc --watch",
     "lint": "tslint --project .",
