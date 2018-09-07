@@ -2,7 +2,7 @@
   "name": "@robojones/nginx-log-parser",
   "main": "build/Parser",
   "typings": "build/Parser",
-  "description": "TLS encrypted communication",
+  "description": "Parse Nginx logs with this simple parser.",
   "version": "0.0.3",
   "scripts": {
     "watch": "tsc --watch",
