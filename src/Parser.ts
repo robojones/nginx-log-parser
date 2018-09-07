@@ -16,7 +16,7 @@ export class Parser {
 	constructor(template: string) {
 		// Split the template at the $ identifier.
 		const parts = template.split('$')
-		// The pieces that are between the identifiers.
+		/** The pieces that are between the identifiers. */
 		const delimiters: string[] = []
 
 		// The first item is always a delimiter.
@@ -38,12 +38,14 @@ export class Parser {
 	/**
 	 * Parse a line from the access log.
 	 * The line must match the initial template.
+	 * Throws a TypeError if the line does not match the schema.
+	 * Be aware that some lines won't be detected as invalid.
 	 * @param line A line from the log file.
 	 */
 	public parseLine(line: string) {
 		const values = line.match(this.schema)
-		if (!values) {
-			throw new TypeError('Line does not match the line ' + line)
+		if (!values || values.length - 1 !== this.identifiers.length) {
+			throw new TypeError('Line does not match the schema. line: ' + line)
 		}
 
 		// Remove the first item since it's the complete line.
@@ -65,6 +67,6 @@ export class Parser {
 	 * @param str The string to escape.
 	 */
 	private escapeRegExpLiteral(str: string): string {
-		return str.replace(/[\\\[.?*+^$({|-]/g, '\\$&')
+		return str.replace(/[\\.?*+^$|\-\(\)\{\}\[\]]/g, '\\$&')
 	}
 }
