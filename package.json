@@ -3,7 +3,7 @@
   "main": "build/Parser",
   "typings": "build/Parser",
   "description": "TLS encrypted communication",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "watch": "tsc --watch",
     "lint": "tslint --project .",
@@ -33,17 +33,17 @@
     "url": "https://github.com/robojones/nginx-logs/issues"
   },
   "homepage": "https://github.com/robojones/nginx-logs#readme",
-	"devDependencies": {
-		"@types/mocha": "^5.2.5",
-		"mocha": "^5.2.0",
-		"nyc": "^13.0.1",
-		"tslint": "^5.11.0",
-		"tslint-config-ultra": "^2.0.0",
-		"typescript": "^3.0.3"
-	},
-	"dependencies": {
-		"@types/node": "^10.9.4"
-	},
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-ultra": "^2.0.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@types/node": "^10.9.4"
+  },
   "nyc": {
     "extension": [
       ".ts"
