@@ -3,7 +3,7 @@
   "main": "build/Parser",
   "typings": "build/Parser",
   "description": "Parse Nginx logs with this simple parser.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "watch": "tsc --watch",
     "lint": "tslint --project .",
@@ -22,8 +22,8 @@
     "nginx",
     "logs",
     "parse",
-		"parser"
-	],
+    "parser"
+  ],
   "author": "robojones",
   "license": "MIT",
   "bugs": {
