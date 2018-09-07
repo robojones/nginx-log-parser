@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/robojones/nginx-log-parser/issues"
   },
-  "homepage": "https://github.com/robojones/nginx-log#readme",
+  "homepage": "https://github.com/robojones/nginx-log-parser#readme",
   "devDependencies": {
     "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",
