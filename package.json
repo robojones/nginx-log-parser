@@ -1,29 +1,61 @@
 {
-  "name": "nginx-logs",
-  "version": "1.0.0",
-  "description": "Parse nginx logs",
-  "main": "createParser.js",
+  "name": "@robojones/nginx-logs",
+  "main": "build/Parser",
+  "typings": "build/Parser",
+  "description": "TLS encrypted communication",
+  "version": "1.0.10",
   "scripts": {
-    "test": "echo 'All tests passed'"
+    "watch": "tsc --watch",
+    "lint": "tslint --project .",
+    "build": "tsc",
+    "test": "yarn build && yarn nyc",
+    "nyc": "nyc mocha 'build/test/**/*.js'"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=7.0.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robojones/nginx-logs.git"
   },
   "keywords": [
-    "nginx",
-    "logs",
-    "log",
-    "parse",
-    "parser"
+    "server",
+    "client",
+    "ssl",
+    "tls",
+    "socket",
+    "buffer",
+    "message"
   ],
   "author": "robojones",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/robojones/nginx-logs/issues"
   },
-  "homepage": "https://github.com/robojones/nginx-logs#readme"
+  "homepage": "https://github.com/robojones/nginx-logs#readme",
+	"devDependencies": {
+		"@types/mocha": "^5.2.5",
+		"mocha": "^5.2.0",
+		"nyc": "^13.0.1",
+		"tslint": "^5.11.0",
+		"tslint-config-ultra": "^2.0.0",
+		"typescript": "^3.0.3"
+	},
+	"dependencies": {
+		"@types/node": "^10.9.4"
+	},
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "reporter": [
+      "lcov",
+      "html",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "build/test"
+    ]
+  }
 }

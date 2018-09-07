@@ -1,0 +1,7 @@
+{
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"files.insertFinalNewline": true,
+	"eslint.autoFixOnSave": true,
+	"git.ignoreLimitWarning": true,
+}

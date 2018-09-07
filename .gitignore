@@ -1,0 +1,9 @@
+build/
+node_modules/
+assets/
+coverage/
+.nyc_output
+cc-test-reporter
+config.json
+*.log
+test.html

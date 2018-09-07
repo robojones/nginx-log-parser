@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"outDir": "./build",
+		"rootDir": "./src",
+		"target": "esnext",
+		"moduleResolution": "node",
+		"module": "commonjs",
+		"strictNullChecks": true,
+		"declaration": true,
+		"importHelpers": true,
+		"inlineSourceMap": true,
+		"listFiles": false,
+		"traceResolution": false,
+		"pretty": true,
+		"noUnusedLocals": true
+	},
+	"include": [
+		"./src/**/*.ts"
+	],
+	"exclude": [
+		"./node_modules/**"
+	]
+}
