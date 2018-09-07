@@ -1,5 +1,5 @@
 {
-  "name": "@robojones/nginx-logs",
+  "name": "@robojones/nginx-log-parser",
   "main": "build/Parser",
   "typings": "build/Parser",
   "description": "TLS encrypted communication",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robojones/nginx-logs.git"
+    "url": "git+https://github.com/robojones/nginx-log-parser.git"
   },
   "keywords": [
     "server",
@@ -30,9 +30,9 @@
   "author": "robojones",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/robojones/nginx-logs/issues"
+    "url": "https://github.com/robojones/nginx-log-parser/issues"
   },
-  "homepage": "https://github.com/robojones/nginx-logs#readme",
+  "homepage": "https://github.com/robojones/nginx-log#readme",
   "devDependencies": {
     "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",

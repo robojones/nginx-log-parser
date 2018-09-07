@@ -1,11 +1,11 @@
-# nginx-logs
+# nginx-log-parser
 
 Parse nginx logs.
 
 ## Installation
 
 ```
-npm i @robojones/nginx-logs
+npm i @robojones/nginx-log-parser
 ```
 
 ## API
@@ -13,6 +13,7 @@ npm i @robojones/nginx-logs
 ### Parser
 
 ```typescript
+const { Parser } = require('@robojones/nginx-log-parser')
 const parser = new Parser(schema)
 ```
 
@@ -36,7 +37,7 @@ The line must match the schema or there may be unpredictable results.
 
 ## Example
 ```typescript
-import { Parser } from '@robojones/nginx-logs'
+const { Parser } = require('@robojones/nginx-log-parser')
 
 /** The schema from the nginx config. */
 const schema = '$remote_addr - $remote_user [$time_local] "$request" $status $bytes_sent "$http_referer" "$http_user_agent"'
