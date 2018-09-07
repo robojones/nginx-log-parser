@@ -1,6 +1,11 @@
 # nginx-log-parser
 
-Parse nginx logs.
+Parse Nginx logs with this simple parser.
+
+[![CircleCI](https://circleci.com/gh/robojones/nginx-log-parser.svg?style=svg)](https://circleci.com/gh/robojones/nginx-log-parser)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7d5bec33ed1fe82c077a/test_coverage)](https://codeclimate.com/github/robojones/nginx-log-parser/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7d5bec33ed1fe82c077a/maintainability)](https://codeclimate.com/github/robojones/nginx-log-parser/maintainability)
 
 ## Installation
 
