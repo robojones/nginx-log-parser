@@ -55,8 +55,7 @@ export class Parser {
 		for (let i = 0; i < values.length; i++) {
 			const identifier = this.identifiers[i]
 			const value = values[i]
-			// Unescape the hex escape sequences that Nginx creates.
-			result[identifier] = unescape(value)
+			result[identifier] = value
 		}
 
 		return result
