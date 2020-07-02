@@ -1,5 +1,5 @@
 const identifierAndValue = /^(\w*)(.*?)$/
-const capture = '(.+?)'
+const capture = '(.+?)?'
 
 /**
  * A parser for Nginx access and error log files.
