@@ -27,7 +27,7 @@ export class Parser {
 			this.identifiers.push(token[1])
 
 			// Escape all critical chars so they won't break the RegExp.
-			const delimiter = this.escapeRegExpLiteral(token[2])
+			const delimiter = Parser.escapeRegExpLiteral(token[2])
 			delimiters.push(delimiter)
 		}
 
@@ -45,7 +45,7 @@ export class Parser {
 	public parseLine(line: string) {
 		const values = line.match(this.schema)
 		if (!values || values.length - 1 !== this.identifiers.length) {
-			throw new TypeError('Line does not match the schema. line: ' + line)
+			throw new TypeError(`Line does not match the schema. line: "${line}"`)
 		}
 
 		// Remove the first item since it's the complete line.
@@ -54,8 +54,7 @@ export class Parser {
 
 		for (let i = 0; i < values.length; i++) {
 			const identifier = this.identifiers[i]
-			const value = values[i]
-			result[identifier] = value
+			result[identifier] = values[i]
 		}
 
 		return result
@@ -65,7 +64,7 @@ export class Parser {
 	 * Replace characters that could break the RegExp (E.g. dots, brackets,...).
 	 * @param str The string to escape.
 	 */
-	private escapeRegExpLiteral(str: string): string {
-		return str.replace(/[\\.?*+^$|\-\(\)\{\}\[\]]/g, '\\$&')
+	private static escapeRegExpLiteral(str: string): string {
+		return str.replace(/[\\.?*+^$|\-(){}\[\]]/g, '\\$&')
 	}
 }

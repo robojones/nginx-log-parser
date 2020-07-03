@@ -1,30 +1,24 @@
 import { deepStrictEqual, throws } from 'assert'
 import { Parser } from '../Parser'
-import { schema, testData } from './test-data'
-
-interface Context extends Mocha.Context {
-	parser: Parser
-}
+import { tests } from './tests'
 
 describe('Parser', () => {
-	beforeEach(function (this: Context) {
-		this.parser = new Parser(schema)
-	})
+	for (const test of tests) {
+		it(test.title, () => {
+			const schema = test.schema
+			const parser = new Parser(schema)
 
-	it('should parse a valid line', function (this: Context) {
-		const data = testData[0]
-		const result = this.parser.parseLine(data.line)
-		deepStrictEqual(result, data.expectedResult)
-	})
-
-	it('should throw an error if the line does not match the schema', function (this: Context) {
-		const data = testData[0]
-		throws(() => {
-			// this should yield one value to much.
-			const invalidLine = data.line + ' -'
-			// this should throw.
-			const result = this.parser.parseLine(invalidLine)
-			console.log(result)
-		}, 'has accepted the invalid line')
-	})
+			if (test.want) {
+				const result = parser.parseLine(test.line)
+				deepStrictEqual(result, test.want)
+			} else {
+				throws(() => {
+					// should yield one value to much.
+					const invalidLine = test.line + ' -'
+					// should throw.
+					parser.parseLine(invalidLine)
+				}, 'has accepted the invalid line')
+			}
+		})
+	}
 })

@@ -8,8 +8,7 @@
     "watch": "tsc --watch",
     "lint": "tslint --project .",
     "build": "tsc",
-    "test": "yarn build && yarn nyc",
-    "nyc": "nyc mocha 'build/test/**/*.js'"
+    "test": "nyc mocha src/test/**.ts"
   },
   "engines": {
     "node": ">=7.0.0"
@@ -33,7 +32,9 @@
   "devDependencies": {
     "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^8.10.2",
     "tslint": "^5.11.0",
     "tslint-config-ultra": "^2.0.0",
     "typescript": "^3.0.3"
@@ -42,17 +43,25 @@
     "@types/node": "^10.9.4"
   },
   "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "lcov",
-      "html",
-      "text",
-      "text-summary"
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
     ],
     "exclude": [
-      "build/test"
-    ]
+      "src/test/**"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }
