@@ -11,16 +11,13 @@ describe('Parser', () => {
 			if (test.want) {
 				const result = parser.parseLine(test.line)
 				deepStrictEqual(result, test.want)
-			} else if (test.wantError) {
+			} else {
 				throws(() => {
 					// should yield one value to much.
 					const invalidLine = test.line + ' -'
 					// should throw.
-					const result = parser.parseLine(invalidLine)
-					console.log(result)
+					parser.parseLine(invalidLine)
 				}, 'has accepted the invalid line')
-			} else {
-				throw new Error(`no result defined for test case ${test.title}`)
 			}
 		})
 	}
